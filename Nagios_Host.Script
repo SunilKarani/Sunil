@@ -1,0 +1,63 @@
+Adding Slave in NRPE Connection
+
+ON SLAVE'
+
+sudo apt-get update 
+
+sudo apt-get install nagios-nrpe-server nagios-plugins -y 
+
+sudo nano /etc/nagios/nrpe.cfg
+
+Uncomment the Server IP Add / Nagios Master IP 
+
+# remove the comment from server address and add the Master ip address
+
+sudo /etc/init.d/nagios-nrpe-server restart
+
+Goto Master 
+
+cd /usr/local/nagios/etc/objects
+
+Copy the Define host & Paste 
+
+sudo nano host1.cfg
+
+define host {
+
+    use                     linux-server            ; Name of host template to use
+                                                    ; This host definition will inherit all variables that are defined
+                                                    ; in (or inherited by) the linux-server host template definition.
+    host_name               localhost /slave name
+    alias                   localhost / nagios-nrpe
+    address                 127.0.0.1 // Slave-Public IP
+}
+
+/usr/local/nagios/etc/objects$ cd ..
+
+/usr/local/nagios/etc$ ls
+
+cgi.cfg  htpasswd.users  nagios.cfg  objects  resource.cfg
+
+sudo nano nagios.cfg
+
+Add new line in Host Template
+
+cfg_file=/usr/local/nagios/etc/objects/host1.cfg
+
+Save it (:wq)
+
+/usr/local/nagios/etc$ cd objects  
+
+/usr/local/nagios/etc/objects$ ls
+
+commands.cfg  contacts.cfg  host1.cfg  localhost.cfg  printer.cfg  switch.cfg  templates.cfg  timeperiods.cfg  windows.cfg
+
+sudo systemctl restart nagios
+
+Goto Slave 
+
+Stop NRPE Connection 
+
+sudo /etc/init.d/nagios-nrpe-server stop
+
+

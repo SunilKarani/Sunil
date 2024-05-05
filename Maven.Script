@@ -1,0 +1,112 @@
+Maven Installation on Ubuntu on AWS
+
+	Maven installation:
+
+sudo apt-get update
+
+sudo apt-get install openjdk-8-jdk -y
+
+sudo apt remove openjdk-8-jdk -y
+
+sudo apt-get install maven -y
+
+mvn -version
+
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+=============================================================
+
+
+Root --> Cd bin 
+
+cd bin$ mvn archetype:generate
+
+id : 'Enter the default value' 
+group number :'Enter the default value8'
+groupid :'general'
+artifactId : 'sample'
+property version : '0.1.0'
+property : 'Enter the default value'
+enter 'y'
+ 
+ls 
+
+cd sample 
+
+ls 
+ 
+apt install tree
+
+sample/ 
+
+tree
+
+mvn compile
+
+tree
+ 
+mvn test
+
+tree
+
+mvn package
+
+sudo apt-get install git 
+
+git --version
+
+root/ubuntu/opt/ git clone https://github.com/gkdevops/PetClinic.git
+
+https://github.com/kiraan95/PetClinic.git
+
+cd /PetClinic
+
+mvn package
+
+PetClinic$ ls
+
+PetClinic$ cd target
+
+root/ubuntu/opt$ wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.56/bin/apache-tomcat-9.0.56.tar.gz
+
+ls
+
+tar zxf apache-tomcat-9.0.24.tar.gz
+
+ls
+
+cd  apache-tomcat-9.0.24
+
+cd bin 
+
+cd bin ./startup.sh
+
+<ip address>:8080 // Copy the instance IP - Check in Browser
+
+cd bin$ cd ..
+
+cd apache-tomcat-9.0.24$ cd ..
+
+
+
+
+cd opt$ ls
+
+cd PetClinic$ ls
+
+cd target$ ls
+
+cd target$ cp petclinic.war /opt/apache-tomcat-9.0.24/webapps/
+cd ..
+
+cd ..
+ 
+cd apache-tomcat-9.0.24
+
+cd bin
+ 
+cd bin$ ./shutdown.sh
+
+cd bin$ ./startup.sh
+
+<ip address>:8080/spring-petclinic-4.2.5

@@ -1,0 +1,69 @@
+Lets Install Nagios Core with all dependencies.
+
+sudo su
+
+yum install -y httpd httpd-tools php gcc glibc glibc-common gd gd-devel make net-snmp
+
+useradd nagios
+
+groupadd nagcmd
+
+usermod -G nagcmd nagios
+
+usermod -G nagcmd apache
+
+mkdir /root/nagios
+
+cd /root/nagios
+
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.5.tar.gz
+
+wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz
+
+tar -xvf nagios-4.4.5.tar.gz
+
+tar -xvf nagios-plugins-2.2.1.tar.gz
+
+cd nagios-4.4.5/
+
+./configure --with-command-group=nagcmd
+
+make all
+
+make install
+
+make install-init
+
+make install-commandmode
+
+make install-config
+
+make install-webconf
+
+systemctl start httpd.service
+
+cd /root/nagios/nagios-plugins-2.2.1
+
+./configure --with-nagios-user=nagios --with-nagios-group=nagios
+
+make
+
+make install
+
+* That’s it, now check the configuration for errors by comparing it with config file.
+
+/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+result should be like this. No warnings No Errors.
+
+* Run below commands to set nagiosadmin password and restart the services
+
+htpasswd -s -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+systemctl enable nagios
+
+systemctl enable httpd
+
+systemctl start nagios.service
+
+http://ipaddress/nagios *

@@ -1,0 +1,43 @@
+Ansbile Installation on AWS
+
+Commands
+
+Master
+
+sudo  apt update 
+sudo apt install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt update
+sudo apt install ansible -y
+
+Slave
+
+sudo apt-get update
+sudo apt-get install python -y
+
+Master
+
+Cd .ssh
+Ssh-keygen
+Cat id_rsa.pub  Copy the command & Paste in Slave (.ssh  sudo vi authorized )
+Connect  Slave * ssh Ubuntu@Public IP
+
+.ssh$ sudo nano /etc/ansible/hosts
+
+Add in Commands
+[production]
+slave1 ansible_ssh_host=Slave<Public-IP>
+
+How to check Ansible is working
+
+.ssh$	* ansible -m ping all
+
+.ssh$	* ansible –m ping slave1
+
+.ssh$	* ansible –m ping production
+
+.ssh$	*ansbile –m ping Slave2  You will get error
+
+
+
+
